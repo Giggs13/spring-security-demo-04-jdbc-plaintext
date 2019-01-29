@@ -1,19 +1,23 @@
-package com.giggs13.springsecurity.config;
+package com.giggs13.springsecurity.configuration;
 
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class SecurityConfiguration
         extends WebSecurityConfigurerAdapter {
+
+    private DataSource securityDataSource;
 
     @Override
     protected void configure(HttpSecurity http)
@@ -34,13 +38,16 @@ public class SecurityConfiguration
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
+        auth.jdbcAuthentication()
+                .dataSource(securityDataSource);
+        /*
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         User.UserBuilder userBuilder = User.builder();
         auth.inMemoryAuthentication()
                 .withUser(userBuilder.username("john").password(encoder.encode("test123")).roles("EMPLOYEE").build())
                 .withUser(userBuilder.username("mary").password(encoder.encode("test123")).roles("EMPLOYEE", "MANAGER").build())
-                .withUser(userBuilder.username("susan").password(encoder.encode("test123")).roles("EMPLOYEE", "ADMIN").build());
+                .withUser(userBuilder.username("susan").password(encoder.encode("test123")).roles("EMPLOYEE", "ADMIN").build());*/
     }
 
     @Override

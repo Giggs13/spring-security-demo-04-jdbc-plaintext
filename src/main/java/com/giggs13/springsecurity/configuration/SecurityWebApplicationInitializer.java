@@ -1,4 +1,4 @@
-package com.giggs13.springsecurity.config;
+package com.giggs13.springsecurity.configuration;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
