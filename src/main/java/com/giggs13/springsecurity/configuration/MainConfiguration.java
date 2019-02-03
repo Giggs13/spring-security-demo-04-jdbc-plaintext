@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({
         PersistenceConfiguration.class,
-        McvWebConfiguration.class,
+        SpringMvcConfiguration.class,
         SecurityConfiguration.class
 })
 public class MainConfiguration {

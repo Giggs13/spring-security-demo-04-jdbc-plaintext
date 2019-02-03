@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.giggs13.springsecurity")
-public class McvWebConfiguration
+public class SpringMvcConfiguration
         implements WebMvcConfigurer {
 
     @Bean
